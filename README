@@ -1,0 +1,10 @@
+Privatemsg Extras is a Drupal module that provides a Views Style plugin that enables user views with the ability to
+send a private message (using Privatemsg) to all users in the view.
+
+For Drupal 6.x
+
+Dependencies
+	Privatemsg 	(http://drupal.org/project/privatemsg)
+	Views		(http://drupal.org/project/views)
+
+Todo List:

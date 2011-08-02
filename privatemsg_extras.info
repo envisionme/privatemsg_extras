@@ -1,0 +1,9 @@
+;$Id$
+name = "Privatemsg Extras"
+description = "Extras and helpers to improve privatemsg UI and workflow"
+core = 6.x
+php = 5.1
+package = "NoJoShmo - Custom Modules"
+dependencies[] = "privatemsg"
+dependencies[] = "views"
+

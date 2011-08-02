@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Implementation of hook_views_api().
+ *
+ * This tells drupal that there is Views integration file named 
+ * privatemsg_extras.views.inc 
+ */
+function privatemsg_extras_views_api() {
+  // Note that you can include 'path' in this array so that your views.inc 
+  // file can be stored in a different location.
+  return array(
+    'api' => 2.0,
+	'path' => drupal_get_path('module','privatemsg_extras'),
+  );
+}
+
+
+
+
+
+
+
+?>
