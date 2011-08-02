@@ -7,4 +7,26 @@ Dependencies
 	Privatemsg 	(http://drupal.org/project/privatemsg)
 	Views		(http://drupal.org/project/views)
 
+Installation instructions:
+--------------------------
+   1. Download the module or checkout the module.
+   2. Upload the module to your Drupal instance.
+   3. Ensure that you have Privatemsg and Views installed
+   4. Create a view with users and set style to "Privatemsg Extras".
+   5. Use it.
+
+Basic Usage
+-----------
+   1. Setup a new view or use an existing view. How to do this see in the 
+      documentation of the Views module.
+   2. In the view add the display "Page".
+   3. Select the newly added display.
+   4. Select the Style. Use Privatemsg Extras (currently supports unformatted user objects)
+   5. Make sure your view displays some users
+   6. A fieldset should appear between the view title and the view content.
+      The fieldset legend will say "Send private message to YOURVIEWTITLE"
+
+	  
+	  
 Todo List:
+	* Allow for more flexibility with regards to fieldset legend?
