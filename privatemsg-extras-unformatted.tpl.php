@@ -34,5 +34,6 @@
 <?php foreach ($rows as $id => $row): ?>
   <div class="<?php print $classes[$id]; ?>">
     <?php print $row; ?>
+	<div style="clear:both;"></div>
   </div>
 <?php endforeach; ?>
