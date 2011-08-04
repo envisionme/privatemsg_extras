@@ -11,9 +11,11 @@ Installation instructions:
 --------------------------
    1. Download the module or checkout the module.
    2. Upload the module to your Drupal instance.
-   3. Ensure that you have Privatemsg and Views installed
-   4. Create a view with users and set style to "Privatemsg Extras".
-   5. Use it.
+   3. Ensure that you have Privatemsg and Views installed and activated
+   4. Activate Privatemsg Extras module
+   5. Give 'access privatemsg extras' permission to roles that should be able to      use it.
+   6. Create a view with users and set style to "Privatemsg Extras".
+   7. Use it.
 
 Basic Usage
 -----------

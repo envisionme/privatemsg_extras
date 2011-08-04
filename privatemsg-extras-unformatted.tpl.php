@@ -12,24 +12,24 @@
 <?php endif; ?>
 
 <?php
-	
-	$recipients = array();
-	
-	for($i=0; $i<count($view->result); $i++){
+	if(user_access('access privatemsg extras')){
+		$recipients = array();
 		
-		$recipients[] = $view->result[$i]->uid;
-	}	
-	if(is_array($recipients) && !empty($recipients)){	
-		
-		$privatemsg_form = drupal_get_form('privatemsg_new',implode(',',$recipients));
-		
-		//privatemsg_new does a drupal_set_title overriding the view title - so lets take back the title
-		$title = $view->display['default']->display_options['title'];
-		drupal_set_title($title); //not sure if I should use t($title) here;
-		
-		print theme('fieldset',array('#title'=>'Send private message to '.strtolower($title),'#attributes'=>array('class'=>'collapsible collapsed'),'#value'=>$privatemsg_form));
+		for($i=0; $i<count($view->result); $i++){
+			
+			$recipients[] = $view->result[$i]->uid;
+		}	
+		if(is_array($recipients) && !empty($recipients)){	
+			
+			$privatemsg_form = drupal_get_form('privatemsg_new',implode(',',$recipients));
+			
+			//privatemsg_new does a drupal_set_title overriding the view title - so lets take back the title
+			$title = $view->display['default']->display_options['title'];
+			drupal_set_title($title); //not sure if I should use t($title) here;
+			
+			print theme('fieldset',array('#title'=>'Send private message to '.strtolower($title),'#attributes'=>array('class'=>'collapsible collapsed'),'#value'=>$privatemsg_form));
+		}
 	}
-
 ?>
 <?php foreach ($rows as $id => $row): ?>
   <div class="<?php print $classes[$id]; ?>">
