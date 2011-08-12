@@ -15,6 +15,38 @@ function privatemsg_extras_perm() {
 }
 
 /**
+ * Implementation of hook_form_alter().
+ */
+function privatemsg_extras_form_alter(&$form, $form_state, $form_id) {
+  // privatemsg_extras system options
+  if ($form_id == 'private_message_settings') {
+    $form['privatemsg_extras'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Private Message Extras'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    );
+    $form['privatemsg_extras']['privatemsg_extras_test_mode'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Test mode'),
+      '#default_value' => variable_get('privatemsg_extras_test_mode', 0),
+    );
+  }
+  // test mode
+  elseif ($form_id == 'privatemsg_new') {
+    if (variable_get('privatemsg_extras_test_mode', 0))
+      $form['privatemsg']['submit']['#submit'] = array('privatemsg_extras_test_submit');
+  }
+}
+
+/**
+ * Test mode submit
+ */
+function privatemsg_extras_test_submit(&$form, $form_state) {
+  drupal_set_message('Message simulated succesfully');
+}
+
+/**
  * Implementation of hook_views_api().
  *
  * This tells drupal that there is Views integration file named 
@@ -25,6 +57,6 @@ function privatemsg_extras_views_api() {
   // file can be stored in a different location.
   return array(
     'api' => 2.0,
-	'path' => drupal_get_path('module','privatemsg_extras'),
+    'path' => drupal_get_path('module','privatemsg_extras'),
   );
 }
