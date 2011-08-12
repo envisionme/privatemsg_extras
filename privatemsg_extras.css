@@ -1,0 +1,18 @@
+#privatemsg-exras {
+  position: relative;
+}
+
+#privatemsg-exras .uibutton {
+  position: absolute;
+  right: 0;
+  top: -42px;
+}
+
+#privatemsg-exras form #edit-preview {
+  display: none;
+}
+
+#privatemsg-exras form #edit-cancel {
+  display: none;
+}
+

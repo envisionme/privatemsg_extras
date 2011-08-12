@@ -27,7 +27,7 @@
 			$title = $view->display['default']->display_options['title'];
 			drupal_set_title($title); //not sure if I should use t($title) here;
 			
-			print theme('fieldset',array('#title'=>'Send private message to '.strtolower($title),'#attributes'=>array('class'=>'collapsible collapsed'),'#value'=>$privatemsg_form));
+      print '<div id="privatemsg-exras"><a href="#" class="uibutton">' . t('Send a message to @title', array('@title' => strtolower($title))) . '</a>' . $privatemsg_form . '</div>';
 		}
 	}
 ?>

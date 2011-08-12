@@ -1,4 +1,11 @@
 <?php
+/**
+ * Implementation of hook_perm().
+ */
+function privatemsg_extras_init() {
+  drupal_add_css(drupal_get_path('module', 'privatemsg_extras') .'/privatemsg_extras.css', 'theme', 'all');
+  drupal_add_js(drupal_get_path('module', 'privatemsg_extras') .'/privatemsg_extras.js', 'file');
+}
 
 /**
  * Implementation of hook_perm().
@@ -21,11 +28,3 @@ function privatemsg_extras_views_api() {
 	'path' => drupal_get_path('module','privatemsg_extras'),
   );
 }
-
-
-
-
-
-
-
-?>
