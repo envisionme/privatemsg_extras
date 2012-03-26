@@ -1,0 +1,6 @@
+name = Autocomplete Contacts
+description = Autocompletes multiple users on message form
+package = NJS Modules
+core = 6.x
+
+

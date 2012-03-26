@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ *  Improves contacts input field for message form
+ *
+ * @author Willem Coetzee
+ */
+
+/**
+ * Implementation of hook_form_alter.
+ *
+ * @todo complete admin form (commented)
+ */
+function autocomplete_contacts_form_alter(&$form, $form_state, $form_id) {
+
+  if ($form_id == 'privatemsg_new') {
+    //Get the current users contacts to use for the autocomplete
+    $result = db_query('SELECT requester_id, requestee_id FROM {user_relationships} WHERE ((requester_id = 16) OR (requestee_id = 16)) AND ((rtid = 1) AND (approved = 1))');
+    $contact_ids_raw = array();  
+    while ($next_contact = db_fetch_object($result)) {
+      if ($next_contact->requester_id == '16')
+        $contact_ids_raw[] = $next_contact->requestee_id;
+      if ($next_contact->requestee_id == '16')
+        $contact_ids_raw[] = $next_contact->requester_id;
+    }
+    $contact_ids = array_unique($contact_ids_raw);
+    $usernames = array();
+    $realnames = array();
+    foreach ($contact_ids as $contact_id) {
+      $result = db_query('SELECT name FROM {users} WHERE uid = '. $contact_id); //limit 1
+      $usernames[] = db_fetch_object($result)->name;
+      $result = db_query('SELECT realname FROM {realname} WHERE uid = '. $contact_id); //limit 1
+      $realnames[] = db_fetch_object($result)->realname;
+    }
+
+    //print_r($usernames);
+ 
+    //Add the javascript needed
+    drupal_add_js(drupal_get_path('module', 'autocomplete_contacts') . '/autocomplete_contacts.js');
+    //Send all the variables needed through to our javascript
+    drupal_add_js(array('autocomplete_contacts' => array(
+      'user_usernames' => $usernames,
+      'user_realnames' => $realnames,
+      )), 'setting');
+    //Add the styling needed
+    drupal_add_css(drupal_get_path('module', 'autocomplete_contacts') . '/autocomplete_contacts.css');
+  }
+}
+
