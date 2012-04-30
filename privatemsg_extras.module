@@ -60,3 +60,45 @@ function privatemsg_extras_views_api() {
     'path' => drupal_get_path('module','privatemsg_extras'),
   );
 }
+
+/**
+* Implementation of hook_action_info().
+*/
+function privatemsg_extras_action_info() {
+  return array(
+    'privatemsg_extras_send_pvt_message_action' => array(
+      'description' => t('Send a private message'),
+      'type' => 'node',
+      'configurable' => TRUE,
+    ),
+  );
+}
+
+/**
+* Implementation of a Drupal action.
+* Sends a private message.
+*/
+function privatemsg_extras_send_pvt_message_action(&$object, $context = array()) {
+  privatemsg_new_thread(array(user_load($object->uid)), check_plain($context['message_subject']), check_plain($context['message_body']));
+}
+
+function privatemsg_extras_send_pvt_message_action_form($context) {
+  $form['message_subject'] = array(
+    '#title' => t('Message Subject'),
+    '#type' => 'textfield',
+    '#description' => t('Subject of the new message.'),
+    '#default_value' => isset($context['message_subject']) ? $context['message_subject'] : '',
+  );
+  $form['message_body'] = array(
+    '#title' => t('Message Body'),
+    '#type' => 'textfield',
+    '#description' => t('Body of the new message.'),
+    '#default_value' => isset($context['message_body']) ? $context['message_body'] : '',
+  );
+  return $form;
+}
+
+function privatemsg_extras_send_pvt_message_action_submit($form, $form_state) {
+  return array('message_subject' => $form_state['values']['message_subject'], 'message_body' => $form_state['values']['message_body']);
+}
+
