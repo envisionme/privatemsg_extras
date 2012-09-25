@@ -14,14 +14,17 @@
  */
 function autocomplete_contacts_form_alter(&$form, $form_state, $form_id) {
 
+  global $user;
+
   if ($form_id == 'privatemsg_new') {
     //Get the current users contacts to use for the autocomplete
-    $result = db_query('SELECT requester_id, requestee_id FROM {user_relationships} WHERE ((requester_id = 16) OR (requestee_id = 16)) AND ((rtid = 1) AND (approved = 1))');
+    $result = db_query('SELECT requester_id, requestee_id FROM {user_relationships} WHERE ((requester_id = ' . $user->uid  . ') OR (requestee_id = ' . $user->uid . ')) AND ((rtid = 1) AND (approved = 
+1))');
     $contact_ids_raw = array();  
     while ($next_contact = db_fetch_object($result)) {
-      if ($next_contact->requester_id == '16')
+      if ($next_contact->requester_id == $user->uid)
         $contact_ids_raw[] = $next_contact->requestee_id;
-      if ($next_contact->requestee_id == '16')
+      if ($next_contact->requestee_id == $user->uid)
         $contact_ids_raw[] = $next_contact->requester_id;
     }
     $contact_ids = array_unique($contact_ids_raw);
