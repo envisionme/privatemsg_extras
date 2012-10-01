@@ -4,7 +4,7 @@
  */
 function privatemsg_extras_init() {
   drupal_add_css(drupal_get_path('module', 'privatemsg_extras') .'/privatemsg_extras.css', 'theme', 'all');
-  drupal_add_js(drupal_get_path('module', 'privatemsg_extras') .'/privatemsg_extras.js', 'file');
+  drupal_add_js(drupal_get_path('module', 'privatemsg_extras') .'/privatemsg_extras.js');
 }
 
 /**
@@ -49,11 +49,11 @@ function privatemsg_extras_test_submit(&$form, $form_state) {
 /**
  * Implementation of hook_views_api().
  *
- * This tells drupal that there is Views integration file named 
- * privatemsg_extras.views.inc 
+ * This tells drupal that there is Views integration file named
+ * privatemsg_extras.views.inc
  */
 function privatemsg_extras_views_api() {
-  // Note that you can include 'path' in this array so that your views.inc 
+  // Note that you can include 'path' in this array so that your views.inc
   // file can be stored in a different location.
   return array(
     'api' => 2.0,
