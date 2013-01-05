@@ -1,13 +1,13 @@
 /**
  * @file
  * JS file of autocomplete_contacts. Does everything needed
- * 
+ *
  * @author Willem Coetzee
  */
 
 /**
  * Using Drupal behaviours to declare main function
- */
+ *//*
 Drupal.behaviors.autocomplete_contacts = function() {
 
   //for now just hide
@@ -45,13 +45,13 @@ Drupal.behaviors.autocomplete_contacts = function() {
     // Down arrow pressed
     else if (keyCode == 40) {
       $(".usernames-dropdown-item:nth-child("+ navigationIndex +")").css("background-color", "white");
-      navigationIndex = navigationIndex+1;     
+      navigationIndex = navigationIndex+1;
       $(".usernames-dropdown-item:nth-child("+ navigationIndex +")").css("background-color", "#ebeef0");
     }
     // Up arrow pressed
     else if (keyCode == 38) {
       $(".usernames-dropdown-item:nth-child("+ navigationIndex +")").css("background-color", "white");
-      navigationIndex = navigationIndex-1;     
+      navigationIndex = navigationIndex-1;
       $(".usernames-dropdown-item:nth-child("+ navigationIndex +")").css("background-color", "#ebeef0");
     }
     else {
@@ -94,7 +94,7 @@ Drupal.behaviors.autocomplete_contacts = function() {
       }
       $("#dropdown-usernames").hide();
     }
-    
+
     //Mouse actions
 
     //Mouseclick on dropdown items
@@ -140,9 +140,9 @@ Drupal.behaviors.autocomplete_contacts = function() {
         }
 
         $("#edit-recipient").val(temp_string);
-    
-      });      
-      
+
+      });
+
     });
 
     //Mouseover on dropdown items
@@ -182,7 +182,7 @@ Drupal.behaviors.autocomplete_contacts = function() {
     }
 
     $("#edit-recipient").val(temp_string);
-    
+
   });
 
   }).keydown(function(e) {
@@ -191,7 +191,7 @@ Drupal.behaviors.autocomplete_contacts = function() {
     e.preventDefault();
     }
   });
-};
+};*/
 
 
 

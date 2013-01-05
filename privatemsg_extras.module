@@ -1,4 +1,8 @@
 <?php
+
+define('PRIVATEMSG_EXTRAS_GROUP_TYPE',1);
+define('PRIVATEMSG_EXTRAS_INDIVIDUAL_TYPE',2);
+
 /**
  * Implementation of hook_perm().
  */
@@ -31,9 +35,35 @@ function privatemsg_extras_form_alter(&$form, $form_state, $form_id) {
       '#title' => t('Test mode'),
       '#default_value' => variable_get('privatemsg_extras_test_mode', 0),
     );
+	
+    $form['privatemsg_extras']['privatemsg_extras_show_message_type'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Allow user to select message type'),
+      '#default_value' => variable_get('privatemsg_extras_show_message_type', 0),
+    );
+
+    $form['privatemsg']['privatemsg_extras_default_message_type'] = array(
+	'#type' => 'select', 
+	'#title' => t('Default message type'),				
+	'#description' => t('By default privatemsg uses the group type, you can change this default here. Only applies when the box above is checked.'),
+	'#options' => array(PRIVATEMSG_EXTRAS_GROUP_TYPE=>t('Group'),PRIVATEMSG_EXTRAS_INDIVIDUAL_TYPE=>t('Individual')),
+	'#default_value' => variable_get('privatemsg_extras_default_message_type', PRIVATEMSG_EXTRAS_GROUP_TYPE),
+    );   
+
+	
   }
   // test mode
   elseif ($form_id == 'privatemsg_new') {
+    if(variable_get('privatemsg_extras_show_message_type', 0)) {
+		$form['privatemsg']['individual_messaging'] = array(
+		'#type' => 'select', 
+		'#title' => t('Message type'),				
+		'#description' => t('Selecting Individual sends each recipient their own message, selecting Group sends a single message to the recipient list with all recipients visible in the message participant\'s list.'),
+		'#options' => array(PRIVATEMSG_EXTRAS_GROUP_TYPE=>t('Group'),PRIVATEMSG_EXTRAS_INDIVIDUAL_TYPE=>t('Individual')),
+		'#weight' => -9,
+		);   
+	}
+
     if (variable_get('privatemsg_extras_test_mode', 0))
       $form['privatemsg']['submit']['#submit'] = array('privatemsg_extras_test_submit');
   }
@@ -102,3 +132,16 @@ function privatemsg_extras_send_pvt_message_action_submit($form, $form_state) {
   return array('message_subject' => $form_state['values']['message_subject'], 'message_body' => $form_state['values']['message_body']);
 }
 
+/**
+ * Implementation of hook_privatemsg_message_presave_alter
+ */
+function privatemsg_extras_privatemsg_message_presave_alter(&$message) {
+  if( (isset($message['individual_messaging']) && $message['individual_messaging'] == PRIVATEMSG_EXTRAS_INDIVIDUAL_TYPE) || variable_get('privatemsg_extras_default_message_type', PRIVATEMSG_EXTRAS_GROUP_TYPE) == PRIVATEMSG_EXTRAS_INDIVIDUAL_TYPE) {
+    if(is_array($message['recipients']) && count($message['recipients']) > 1) {
+      //We only allow last recipient to be pass to the original workflow. For all other messages we send them through a new recursive function call
+      $message_recursive = $message;
+      $message['recipients'] = array(array_pop($message_recursive['recipients']));
+      _privatemsg_send($message_recursive);
+    }
+  }
+}
