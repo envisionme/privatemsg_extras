@@ -7,7 +7,8 @@
 
 /**
  * Using Drupal behaviours to declare main function
- *//*
+ */
+
 Drupal.behaviors.autocomplete_contacts = function() {
 
   //for now just hide
@@ -191,7 +192,7 @@ Drupal.behaviors.autocomplete_contacts = function() {
     e.preventDefault();
     }
   });
-};*/
+};
 
 
 
