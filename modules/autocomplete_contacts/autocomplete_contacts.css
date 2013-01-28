@@ -13,6 +13,7 @@
   display: inline;
   border: none;
   float:left;
+  margin-top: 5px;
 }
 
 .entered-username {
@@ -44,7 +45,7 @@
 }
 
 .usernames-dropdown-item {
-  width: 476px;
+  width: 549px;
 }
 
 .username-value {
@@ -53,7 +54,8 @@
 
 #dropdown-usernames {
   display: none;
-  width: 476px;
+  width: 549px;
   padding-left: 3px;
   border: 1px solid grey;
+  margin-top: -9px;
 }
